@@ -61,4 +61,16 @@ class PrefixTreeSpec extends FlatSpec with Matchers {
     tree3 == tree2 should be(false)
     tree4 == tree2 should be(false)
   }
+
+  it should "not double data" in {
+    val tree: Tree[Char, Int] = new Tree[Char, Int](Map.empty, None)
+
+    val res = tree
+      .put("a", 1)
+      .put("bc", 2)
+
+    assertThrows[NoSuchElementException] {
+      res.sub("ba").get
+    }
+  }
 }

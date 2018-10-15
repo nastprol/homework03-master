@@ -23,7 +23,7 @@ class Tree[K, +V](val prefixTrees: Map[K, Tree[K, V]], val value: Option[V]) ext
       val subTree = prefixTrees(path.head).put(path.tail, value)
       new Tree(prefixTrees + (path.head -> subTree), this.value)
     }
-    else new Tree[K, U](prefixTrees + (path.head -> put(path.tail, value)), this.value)
+    else new Tree[K, U](prefixTrees + (path.head -> new Tree[K, U](Map.empty, None).put(path.tail, value)), this.value)
   }
 
   override def hashCode(): Int = {
